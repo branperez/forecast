@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<span th:text="${error}"></span>
+<form method="post" id="form" action="logged-in">
+    <label>Username</label>
+    <input type="text" name="username"/>
+
+    <label>Password</label>
+    <input type="password" name="password"/>
+    <input type="submit" value="Login"/>
+</form>
+</body>
+</html>

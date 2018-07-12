@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+<form method="post" id="form">
+    <input class="form-control" type="hidden" id="longitude" name="longitude"/>
+    <input class="form-control" type="hidden" id="latitude" name="latitude"/>
+    <input type="button" value="Get Forecast" id="getLocation" />
+
+</form>
+<script type="text/javascript" th:src="@{/js/location.js}"></script>
+
+    <h1 th:text="${lat}"></h1>
+</body>
+</html>

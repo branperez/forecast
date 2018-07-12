@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body class="container-fluid">
+
+    <div th:object="${weather}" >
+
+        <!-- current forecast -->
+
+        <div class="row current-forecast-main" >
+            <div class="col-lg-12 current-forecast-main-col" th:id="*{currently.icon}">
+                <img class="current-weather-icon" th:src="@{'/img/weather-icons/' + *{currently.icon} + '.svg'}"/>
+                <h1 class="summary" th:text="*{currently.summary}"></h1>
+                <div class="temp">
+                    <h1 th:text="*{currently.temperature}"></h1>
+                    <h4 th:text="'Feels like ' + *{currently.apparentTemperature}"></h4>
+                </div>
+
+            </div>
+        </div>
+        <div class="row current-forecast-sub">
+            <div class="col-lg-12 current-forecast-sub-col">
+                <div class="center-col">
+                    <div class="title-current"><h1 >Today</h1></div>
+                    <span><p class="key icon-rainy2" > Rain Chance</p><p class="value" th:text="*{currently.precipProbability} + '%'"></p></span>
+                    <span><p class="key icon-wind" > Wind</p><p class="value" th:text="*{currently.windSpeed}"></p></span>
+                    <span><p class="key icon-droplet" > Humidity</p><p class="value" th:text="*{currently.humidity} + '%'"></p></span>
+                    <span><p class="key icon-cloud7" > Dew Point</p><p class="value" th:text="*{currently.dewPoint} + '%'"></p></span>
+                    <span><p class="key icon-sun" > UV Index</p><p class="value" th:text="*{currently.uvIndex}"></p></span>
+                    <span><p class="key icon-eye"> Visibility</p><p class="value" th:text="*{currently.visibility}"></p></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- daily forecast -->
+        <div class="row daily-forecast-article" th:object="${weather.daily}">
+            <div class="daily-forecast-header">
+            <h1 >Daily Forecast</h1>
+            <p class="daily-summary" th:text="*{summary}"></p>
+            </div>
+            <div class="col-md-3 daily-forecast" th:each="day : *{data}">
+                <div class="daily-forecast-card">
+                    <img th:src="@{'/img/weather-icons/' + ${day.icon} + '.svg'}"/>
+                    <h4 class="day-summary" th:text="${day.summary}"></h4>
+                    <div class="day-temp">
+                        <h3 th:text="${day.temperatureMax}"></h3>
+                        <h4 th:text="${day.temperatureMin}"></h4>
+                    </div>
+
+                </div>
+                <div class="day-forecast">
+                    <p class="key icon-sun3"> Real Feel</p><p class="value" th:text="${day.apparentTemperatureMax} + '/' + ${day.apparentTemperatureMin}"></p>
+
+                    <p class="key icon-rainy5 "> Rain Chance</p><p class="value" th:text="${day.precipProbability}"></p>
+                    <p class="key icon-weather-windy"> Wind</p><p class="value" th:text="${day.windSpeed}"></p>
+                    <p class="key icon-droplet"> Humidity</p><p class="value" th:text="${day.humidity}"></p>
+                    <p class="key icon-sun"> UV Index</p><p class="value" th:text="${day.uvIndex}"></p>
+                </div>
+            </div>
+
+        </div>
+        <footer class="row">
+            <div class="col-md-4">
+                <a href="https://darksky.net/poweredby/"><img th:src="@{../img/poweredby-darkbackground.png}" /></a>
+
+            </div>
+            <!--<div class="col-md-4"><h1>Constructed by: Brandon Perez</h1></div>-->
+        </footer>
+    </div>
+
+</body>
+</html>

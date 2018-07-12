@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8"/>
+    <title></title>
+
+</head>
+<body>
+<script th:src="@{/js/maps.js}"></script>
+<div class="row">
+<div class="col-md-3">
+<div class="pac-card" id="pac-card">
+    <div>
+        <div id="title">
+            Autocomplete search
+        </div>
+        <div id="type-selector" class="pac-controls">
+            <input type="radio" name="type" id="changetype-all" checked="checked" />
+            <label for="changetype-all">All</label>
+
+            <input type="radio" name="type" id="changetype-establishment" />
+            <label for="changetype-establishment">Establishments</label>
+
+            <input type="radio" name="type" id="changetype-address" />
+            <label for="changetype-address">Addresses</label>
+
+            <input type="radio" name="type" id="changetype-geocode" />
+            <label for="changetype-geocode">Geocodes</label>
+        </div>
+        <div id="strict-bounds-selector" class="pac-controls">
+            <input type="checkbox" id="use-strict-bounds" value="" />
+            <label for="use-strict-bounds">Strict Bounds</label>
+        </div>
+    </div>
+    <div id="pac-container">
+        <input id="pac-input" type="text"
+               placeholder="Enter a location" />
+    </div>
+</div>
+    <div>
+        <form method="post" id="save" name="saveForm">
+            <input type="hidden" name="city" id="city"/>
+            <input type="hidden" name="state" id="state"/>
+            <input type="hidden" name="country" id="country"/>
+            <input type="hidden" name="latSave" id="latSave"/>
+            <input type="hidden" name="lngSave" id="lngSave"/>
+
+            <button class="btn" onclick="saveLocation()" type="button" >Save Location</button>
+        </form>
+        <form method="post" action="/forecast" id="forecast" name="getForecast">
+            <input type="hidden" name="latitude" id="latCast"/>
+            <input type="hidden" name="longitude" id="lngCast"/>
+
+
+
+        </form>
+        <button class="btn" onclick="getLocationForecast()" >Get Location Forecast</button>
+        <button class="btn" onclick="setMarker()">Drop Marker</button>
+    </div>
+    <div th:if="${user.locations}">
+        <ul>
+            <li  th:text="${user.username}"></li>
+        </ul>
+    </div>
+</div>
+<div id="map" class="col-lg-9"></div>
+</div>
+<form method="post" id="form" action="/forecast">
+    <input class="form-control" type="hidden" id="longitude" name="longitude"/>
+    <input class="form-control" type="hidden" id="latitude" name="latitude"/>
+    <input type="button" onclick="getCoords()" value="Get Forecast" id="getLocation" />
+
+</form>
+<div th:if="${location}">
+<script th:inline="javascript">function setMap() {
+	setTimeout(function() {
+	    marker.setPosition({lat: [[${location.latitude}]], lng: [[${location.longitude}]] });
+	    map.setCenter({lat: [[${location.latitude}]], lng: [[${location.longitude}]] });
+    }, 0);
+}
+</script>
+</div>
+<div th:unless="${location}">
+    <script th:inline="javascript">function setMap() {
+	setTimeout(function() {
+	    marker.setPosition({lat: 29.95106579999999, lng: -90.0715323 });
+	    map.setCenter({lat: 29.95106579999999, lng: -90.0715323 });
+    }, 0);
+}</script>
+</div>
+</body>
+</html>

@@ -26,12 +26,12 @@ public class UserController {
     @Autowired
     private PasswordDao passwordDao;
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public String index(Model model) {
         return "user/index";
     }
 
-    @RequestMapping(value = "logged-in")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public String loggedIn(Model model, @RequestParam String username, @RequestParam String password, HttpServletRequest request, HttpServletResponse response) {
 
         if (!userDao.findByUsername(username).isEmpty()) {
@@ -45,8 +45,7 @@ public class UserController {
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("user", user);
                 model.addAttribute("User", user);
-                return "user/logged-in";
-                /* TODO: forward to user home page (locations management page?)  */
+                return "redirect:/location";
             } else {
                 model.addAttribute("error", "Password is incorrect");
                 return "user/index";
@@ -65,8 +64,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String registerUser(Model model, @RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam String validate) {
-        /* TODO: @validate user object/check for errors && passwords against validation */
+    public String registerUser(Model model, @RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam String validate, HttpServletRequest request) {
 
         if (username.length() < 4 || username.length() > 18) {
             model.addAttribute("error", "Username must be between 4 and 18 characters");
@@ -86,13 +84,33 @@ public class UserController {
         newUser.setPassword(passwordDao.findOne(newPassword.getId()));
         userDao.save(newUser);
 
-
+        HttpSession httpSession = request.getSession(false);
+        httpSession.setAttribute("user", newUser);
 
         model.addAttribute("User", newUser);
-        return "user/logged-in";
+        return "redirect:/location";
 
-        /* TODO: forward to user home page (need to figure out what this will be) */
     }
 
+    @RequestMapping(value = "logout")
+    public String logout(Model model, HttpServletRequest request) {
+
+        HttpSession httpSession = request.getSession(false);
+
+        User user = null;
+        if(httpSession != null) {
+            user = (User) httpSession.getAttribute("user");
+
+        }
+
+        if(user!=null) {
+            httpSession.removeAttribute("user");
+        }
+
+        model.addAttribute("logout",  user.getUsername() + " is now logged out");
+
+        return "redirect:/login";
+        /*TODO: Improve UX by showing user is logged out (send to login page?)*/
+    }
 }
 

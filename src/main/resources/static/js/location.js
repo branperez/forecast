@@ -1,9 +1,12 @@
 // use navigation.geolocation.getcurrentPosition to get longitude/latitude
-window.onload = function(){ 
+
 
     const success = (pos) => {
 
         let cordinates = pos.coords;
+
+        document.cookie = "latitude=" + cordinates.latitude.toString();
+        document.cookie = "longitude=" + cordinates.longitude.toString();
 
         document.getElementById("longitude").value = cordinates.longitude;
         document.getElementById("latitude").value = cordinates.latitude;
@@ -16,9 +19,9 @@ window.onload = function(){
 
     // use button on click to queue
 
-};
 
-/** TODO: change this into a cookie variable
+
+/** TODO: Save latitude, longitude, and timezone in cookies to use in location controller
  * 
  * check for cookie variable
  *      if it doesn't exist, ask for geolocation

@@ -258,7 +258,7 @@ function saveLocation() {
 }
 
 if(map.latLng) {
-    dummy();
+    setMap();
 }
 
 /** reverse geocoding URI "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latSave + "," + lngSave +"&key=AIzaSyCQ16IY4VPnmLOt4OiQIIIzBNCMXgvulgg" */

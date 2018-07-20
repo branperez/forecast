@@ -465,8 +465,6 @@
     display: inline-block;
     width: 50%;
 }
-.key {
-}
 
 .value {
     text-align: right;
@@ -478,7 +476,7 @@
     width: 33%;
     margin: 0 auto;
     color: aliceblue;
-    padding-top: 5em;
+    padding-top: 1em;
     padding-bottom: 2.5em;
     font-size: 1.5em;
     font-family: Arial, Helvetica, sans-serif;
@@ -511,12 +509,6 @@
 .daily-forecast-header, .daily-summary {
     text-align: center;
     padding: 2em 0;
-}
-
-.daily-forecast-header {
-    padding-top: 10rem;
-    background-color: #FDE3A7;
-
 }
 
 .day-summary, .day-temp {
@@ -555,13 +547,13 @@
 
 .daily-forecast {
     background-color: #2574A9;
-    color: #FDE3A7;
-    border: 1px solid #FDE3A7;
-    border-bottom: 10px solid #FDE3A7;
+    color: aliceblue;
+    /* border: 1px solid #FDE3A7; 
+    border-bottom: 10px solid #FDE3A7; */
 }
 
 .daily-forecast .daily-forecast-card {
-    border: 2px solid #FDE3A7;
+    border: 2px solid aliceblue;
     text-shadow: 1px 1px #2574A9;
 }
 
@@ -581,4 +573,31 @@ footer.row div h1 {
 
 #map {
   height: 100vh;
+}
+
+ul.forecast-nav a {
+  color: aliceblue;
+}
+
+ul.location-nav {
+  color: #2574A9;
+}
+
+ul.forecast-nav, ul.location-nav {
+  text-align: center;
+  padding-bottom: 2em;
+}
+
+div.login {
+  max-width: 25vw;
+  margin: 0 auto;
+  padding-top: 20vh;
+}
+
+div.login form {
+  padding-top: 2em;
+}
+
+.location-controls {
+  padding-left: 15px;
 }

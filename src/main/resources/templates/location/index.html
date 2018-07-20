@@ -9,6 +9,12 @@
 <script th:src="@{/js/maps.js}"></script>
 <div class="row">
 <div class="col-md-3">
+    <div class="location-controls" >
+    <ul class="location-nav list-inline" th:unless="${user}"><li><a href="/login">Login</a></li></ul>
+    <ul class="location-nav list-inline" th:if="${user}">
+        <li><a  href="/logout">Logout</a></li>
+        <li><a href="/" >Forecast</a></li>
+    </ul>
 <div class="pac-card" id="pac-card">
     <div>
         <div id="title">
@@ -38,7 +44,7 @@
     </div>
 </div>
     <div>
-        <form method="post" id="save" name="saveForm">
+        <form method="post" id="save" name="saveForm" action="/location">
             <input type="hidden" name="city" id="city"/>
             <input type="hidden" name="state" id="state"/>
             <input type="hidden" name="country" id="country"/>
@@ -47,7 +53,7 @@
 
             <button class="btn" onclick="saveLocation()" type="button" >Save Location</button>
         </form>
-        <form method="post" action="/forecast" id="forecast" name="getForecast">
+        <form method="post" action="/" id="forecast" name="getForecast">
             <input type="hidden" name="latitude" id="latCast"/>
             <input type="hidden" name="longitude" id="lngCast"/>
 
@@ -57,20 +63,26 @@
         <button class="btn" onclick="getLocationForecast()" >Get Location Forecast</button>
         <button class="btn" onclick="setMarker()">Drop Marker</button>
     </div>
-    <div th:if="${user.locations}">
-        <ul>
-            <li  th:text="${user.username}"></li>
+    <div th:object="${user}">
+        <ul class="list-unstyled">
+            <li  th:each="location : *{locations}" >
+                <h5 th:text="${location.city} + ', ' + ${location.administrative_area}"></h5>
+                <form method="post" action="/">
+                    <input type="hidden" name="latitude" th:value="${location.latitude}"/>
+                    <input type="hidden" name="longitude" th:value="${location.longitude}"/>
+
+                    <input type="submit" class="btn btn-success" th:value="'Get ' + ${location.city} + ' Forecast'" />
+                </form>
+
+                <a th:href="'/location/' + ${location.Id}" class="btn btn-danger">Remove</a>
+
+            </li>
         </ul>
+    </div>
     </div>
 </div>
 <div id="map" class="col-lg-9"></div>
 </div>
-<form method="post" id="form" action="/forecast">
-    <input class="form-control" type="hidden" id="longitude" name="longitude"/>
-    <input class="form-control" type="hidden" id="latitude" name="latitude"/>
-    <input type="button" onclick="getCoords()" value="Get Forecast" id="getLocation" />
-
-</form>
 <div th:if="${location}">
 <script th:inline="javascript">function setMap() {
 	setTimeout(function() {
@@ -78,13 +90,14 @@
 	    map.setCenter({lat: [[${location.latitude}]], lng: [[${location.longitude}]] });
     }, 0);
 }
+
 </script>
 </div>
 <div th:unless="${location}">
     <script th:inline="javascript">function setMap() {
 	setTimeout(function() {
-	    marker.setPosition({lat: 29.95106579999999, lng: -90.0715323 });
-	    map.setCenter({lat: 29.95106579999999, lng: -90.0715323 });
+	    marker.setPosition({lat: [[${latitude}]], lng: [[${longitude}]] });
+	    map.setCenter({lat: [[${latitude}]], lng: [[${longitude}]] });
     }, 0);
 }</script>
 </div>

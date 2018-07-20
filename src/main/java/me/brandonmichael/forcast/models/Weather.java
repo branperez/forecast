@@ -32,8 +32,15 @@ public class Weather {
 
         this.hourly = new Forecast(weather.getHourly().getSummary(), weather.getHourly().getIcon());
 
+        int i = 0;
         for (HashMap<String, String> forecast : weather.getHourly().getData()) {
-            hourly.add(parseMap(forecast));
+            if (i < 12){
+                hourly.add(parseMap(forecast));
+            } else {
+                break;
+            }
+
+            i++;
         }
 
         this.hourly.setData(hourly);
@@ -47,7 +54,7 @@ public class Weather {
         this.daily.setData(daily);
     }
 
-    /* TODO: Create constructor that reformats existing weather object */
+    /* probably should be in a separate class */
 
     public HashMap<String, String> parseMap(HashMap<String, String> conditions) {
         HashMap<String, String> parsedMap = new HashMap<>();
@@ -114,7 +121,7 @@ public class Weather {
                     break;
                 default: parsedMap.put(forecastKey, forecastValue);
 
-                /* create statement for time w date object.  */
+                /* TODO: create statement for time w date object.  */
                     /* create additional parameter to differentiate between current, daily, and hourly forecasts
                     *       this is especially important on what to return in the date object */
             }

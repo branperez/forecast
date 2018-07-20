@@ -5,14 +5,19 @@
     <title></title>
 </head>
 <body>
+<link rel="stylesheet" th:href="@{/css/loader.css}" />
 
 <form method="post" id="form">
     <input class="form-control" type="hidden" id="longitude" name="longitude"/>
     <input class="form-control" type="hidden" id="latitude" name="latitude"/>
-    <input type="button" value="Get Forecast" id="getLocation" />
 
 </form>
 <script type="text/javascript" th:src="@{/js/location.js}"></script>
+<div id="loader-wrapper">
+    <div id="loader"></div>
+</div>
+
+
 
     <h1 th:text="${lat}"></h1>
 </body>

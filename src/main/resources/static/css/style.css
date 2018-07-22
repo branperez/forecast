@@ -590,6 +590,10 @@ div.location-card a {
   color: white;
 }
 
+div.location-card a:hover {
+  text-decoration: none;
+}
+
 div.location-card div h5 {
   margin: 0;
 }

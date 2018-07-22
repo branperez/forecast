@@ -108,7 +108,6 @@ public class UserController {
         }
 
         return "redirect:/login";
-        /*TODO: Improve UX by showing user is logged out (send to login page?)*/
     }
 }
 

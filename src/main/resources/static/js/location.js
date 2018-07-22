@@ -7,6 +7,8 @@
 
         document.cookie = "latitude=" + cordinates.latitude.toString();
         document.cookie = "longitude=" + cordinates.longitude.toString();
+        /**resets location name if user is viewing thier location */
+        sessionStorage.setItem("locationName", "test");
 
         document.getElementById("longitude").value = cordinates.longitude;
         document.getElementById("latitude").value = cordinates.latitude;

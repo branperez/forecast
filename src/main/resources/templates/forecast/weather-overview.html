@@ -13,7 +13,8 @@
         <div class="row current-forecast-main" >
             <div class="col-lg-12 current-forecast-main-col" th:id="*{currently.icon}">
                 <img class="current-weather-icon" th:src="@{'/img/weather-icons/' + *{currently.icon} + '.svg'}"/>
-                <h1 class="summary" th:text="*{currently.summary}"></h1>
+                <div class="summary"><h4 th:text="${city}"></h4><h1 class="summary" th:text="*{currently.summary}"></h1></div>
+
                 <div class="temp">
                     <h1 th:text="*{currently.temperature}"></h1>
                     <h4 th:text="'Feels like ' + *{currently.apparentTemperature}"></h4>

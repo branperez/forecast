@@ -215,13 +215,35 @@ function getMarkerCords() {
 }
 
 function getLocationForecast() {
-    let myLatLng = getMarkerCords();
+    geocoder.geocode({
+        latLng: {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()}
+      }, (responses) => {
+        if (responses && responses.length > 0) {
+          let myLatLng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+          let field = responses[0].address_components;
+          let data = {};
+          for(i = 0; i < field.length; i++) {
+              
+              if(field[i].types[0] == "country") {
+                  data.country = field[i].long_name;
+              } else if (field[i].types[0] == "administrative_area_level_1") {
+                  data.state = field[i].short_name;
+              } else if (field[i].types[0] == "locality") {
+                  data.city = field[i].long_name;
+              }
+  
+          }
+        document.getElementById("cityCast").value = data.city + ', ' + data.state;
+        document.getElementById("latCast").value = myLatLng.lat;
+        document.getElementById("lngCast").value = myLatLng.lng;
 
-    console.log(myLatLng);
-    document.getElementById("latCast").value = myLatLng.lat;
-    document.getElementById("lngCast").value = myLatLng.lng;
+        document.getElementById("forecast").submit(); 
+        } else {
+          marker.address_components = 'Cannot determine address at this location.';
+        }
+      })
 
-    document.getElementById("forecast").submit(); 
+    
 }
 
 function saveLocation() {

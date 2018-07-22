@@ -27,11 +27,26 @@ public class ForecastController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String renderForcast(@RequestParam String longitude, @RequestParam String latitude, Model model, HttpServletRequest request) {
+    public String renderForcast(@RequestParam String longitude, @RequestParam String latitude, @RequestParam(value = "city", required = false) String city, Model model, HttpServletRequest request) {
         // feed posted location data into darkskys api
         RestTemplate restTemplate = new RestTemplate();
         Weather jsonWeather = restTemplate.getForObject("https://api.darksky.net/forecast/ab7f7203b8910e9396157c09cd76eabf/" + latitude + "," + longitude, Weather.class);
             Weather weather = new Weather(jsonWeather);
+
+            HttpSession httpSession = request.getSession();
+
+            User user = null;
+            if (httpSession!=null) {
+                user = (User) httpSession.getAttribute("user");
+
+                if (user!=null) {
+                    model.addAttribute("user", user);
+                }
+            }
+
+            if (city!=null) {
+                model.addAttribute("city", city);
+            }
 
             model.addAttribute("weather", weather);
         return "forecast/weather-overview";

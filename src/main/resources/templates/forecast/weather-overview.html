@@ -48,6 +48,7 @@
         <div class="row daily-forecast-article" th:object="${weather.hourly}">
 
             <div class="col-md-2 daily-forecast" th:each="hour : *{data}" > <!-- th:if="${itrStat.index} < 12" -->
+                <h4 th:text="${hour.time}"></h4>
                 <div class="daily-forecast-card">
                     <img th:src="@{'/img/weather-icons/' + ${hour.icon} + '.svg'}"/>
                     <h4 class="day-summary" th:text="${hour.summary}"></h4>
@@ -71,6 +72,7 @@
         <div class="row daily-forecast-article" th:object="${weather.daily}">
 
             <div class="col-md-3 daily-forecast" th:each="day : *{data}" > <!-- th:if="${itrStat.index} < 12" -->
+                <h3 th:text="${day.time}"></h3>
                 <div class="daily-forecast-card">
                     <img th:src="@{'/img/weather-icons/' + ${day.icon} + '.svg'}"/>
                     <h4 class="day-summary" th:text="${day.summary}"></h4>

@@ -2,7 +2,9 @@ package me.brandonmichael.forcast.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,21 +23,21 @@ public class Weather {
     private HashMap<String, String> currentForecastInts = new HashMap<>();
 
     public Weather() {
-        this.currentForecastInts = parseMap(currently);
+        this.currentForecastInts = parseMap(currently, "none");
     }
 
     public Weather(Weather weather) {
         ArrayList<HashMap<String, String>> daily = new ArrayList<>();
         ArrayList<HashMap<String, String>> hourly = new ArrayList<>();
 
-        this.currently = parseMap(weather.getCurrently());
+        this.currently = parseMap(weather.getCurrently(), "none");
 
         this.hourly = new Forecast(weather.getHourly().getSummary(), weather.getHourly().getIcon());
 
         int i = 0;
         for (HashMap<String, String> forecast : weather.getHourly().getData()) {
             if (i < 12){
-                hourly.add(parseMap(forecast));
+                hourly.add(parseMap(forecast, "hours"));
             } else {
                 break;
             }
@@ -48,7 +50,7 @@ public class Weather {
         this.daily = new Forecast(weather.getDaily().getSummary(), weather.getDaily().getIcon());
 
         for (HashMap<String, String> forecast : weather.getDaily().getData()) {
-            daily.add(parseMap(forecast));
+            daily.add(parseMap(forecast, "day"));
         }
 
         this.daily.setData(daily);
@@ -56,7 +58,7 @@ public class Weather {
 
     /* probably should be in a separate class */
 
-    public HashMap<String, String> parseMap(HashMap<String, String> conditions) {
+    public HashMap<String, String> parseMap(HashMap<String, String> conditions, String dateFormat) {
         HashMap<String, String> parsedMap = new HashMap<>();
 
         for (Map.Entry<String, String> condition : conditions.entrySet()) {
@@ -119,11 +121,20 @@ public class Weather {
                     String aptempMaxString = Long.toString(aptempMaxLong);
                     parsedMap.put(forecastKey, aptempMaxString);
                     break;
-                default: parsedMap.put(forecastKey, forecastValue);
+                case "time": long timeUnix = Long.parseLong(forecastValue) * 1000;
+                    Date date = new Date(timeUnix);
+                    if (dateFormat.equals("hours")) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("ha");
+                        String formattedDate = sdf.format(date);
+                        parsedMap.put(forecastKey, formattedDate);
+                    } else if (dateFormat.equals("day")) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("E");
+                        String formattedDate = sdf.format(date);
+                        parsedMap.put(forecastKey, formattedDate);
+                    }
 
-                /* TODO: create statement for time w date object.  */
-                    /* create additional parameter to differentiate between current, daily, and hourly forecasts
-                    *       this is especially important on what to return in the date object */
+                    break;
+                default: parsedMap.put(forecastKey, forecastValue);
             }
         }
 

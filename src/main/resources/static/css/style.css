@@ -458,7 +458,8 @@
 }
 
 .daily-forecast-card{
-    background-image: linear-gradient(to bottom, #90dffe 0%, #38a3d1 100%)
+    background-image: linear-gradient(to bottom, #90dffe 0%, #38a3d1 100%);
+    position: relative;
 }
 
 .key, .value {
@@ -523,7 +524,7 @@
 }
 
 .day-temp {
-    top: 50%;
+    bottom: 5%;
     right: 5%;
 }
 

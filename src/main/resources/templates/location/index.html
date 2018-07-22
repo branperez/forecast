@@ -2,13 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head">
     <meta charset="UTF-8"/>
-    <title></title>
-
 </head>
-<body>
+<body class="location">
 <script th:src="@{/js/maps.js}"></script>
 <div class="row">
 <div class="col-md-3">
+    <h4 class="username" th:text="${user.username}"></h4>
     <div class="location-controls" >
     <ul class="location-nav list-inline" th:unless="${user}"><li><a href="/login">Login</a></li></ul>
     <ul class="location-nav list-inline" th:if="${user}">
@@ -16,28 +15,6 @@
         <li><a href="/" >Forecast</a></li>
     </ul>
 <div class="pac-card" id="pac-card">
-    <div>
-        <div id="title">
-            Autocomplete search
-        </div>
-        <div id="type-selector" class="pac-controls">
-            <input type="radio" name="type" id="changetype-all" checked="checked" />
-            <label for="changetype-all">All</label>
-
-            <input type="radio" name="type" id="changetype-establishment" />
-            <label for="changetype-establishment">Establishments</label>
-
-            <input type="radio" name="type" id="changetype-address" />
-            <label for="changetype-address">Addresses</label>
-
-            <input type="radio" name="type" id="changetype-geocode" />
-            <label for="changetype-geocode">Geocodes</label>
-        </div>
-        <div id="strict-bounds-selector" class="pac-controls">
-            <input type="checkbox" id="use-strict-bounds" value="" />
-            <label for="use-strict-bounds">Strict Bounds</label>
-        </div>
-    </div>
     <div id="pac-container">
         <input id="pac-input" type="text"
                placeholder="Enter a location" />
@@ -51,7 +28,7 @@
             <input type="hidden" name="latSave" id="latSave"/>
             <input type="hidden" name="lngSave" id="lngSave"/>
 
-            <button class="btn" onclick="saveLocation()" type="button" >Save Location</button>
+            <button class="location-btn" onclick="saveLocation()" type="button" >Save Location</button>
         </form>
         <form method="post" action="/" id="forecast" name="getForecast">
             <input type="hidden" name="latitude" id="latCast"/>
@@ -61,26 +38,26 @@
 
 
         </form>
-        <button class="btn" onclick="getLocationForecast()" >Get Location Forecast</button>
-        <button class="btn" onclick="setMarker()">Drop Marker</button>
+        <button class="location-btn" onclick="getLocationForecast()" >Get Location Forecast</button>
+        <button class="location-btn" onclick="setMarker()">Drop Marker</button>
     </div>
     <div th:object="${user}">
-        <ul class="list-unstyled">
+        <ul class="list-unstyled locations-list">
             <li  th:each="location : *{locations}" >
-                <div>
+                <div class="location-card">
                     <div>
                         <h5 th:text="${location.city} + ', ' + ${location.administrative_area}"></h5>
                         <h5 th:text="${location.country}"></h5>
                     </div>
 
-                    <a th:href="'/location/' + ${location.Id}" class="btn btn-danger">Remove</a>
+                    <a th:href="'/location/' + ${location.Id}" >Remove</a>
                 </div>
                 <form method="post" action="/">
                     <input type="hidden" name="latitude" th:value="${location.latitude}"/>
                     <input type="hidden" name="longitude" th:value="${location.longitude}"/>
                     <input type="hidden" name="city" th:value="${location.city} + ', ' + ${location.administrative_area}"/>
 
-                    <input type="submit" class="btn btn-success" th:value="'Get ' + ${location.city} + ' Forecast'" />
+                    <input type="submit" th:value="'Get ' + ${location.city} + ' Forecast'" />
                 </form>
 
             </li>

@@ -107,8 +107,6 @@ public class UserController {
             httpSession.removeAttribute("user");
         }
 
-        model.addAttribute("logout",  user.getUsername() + " is now logged out");
-
         return "redirect:/login";
         /*TODO: Improve UX by showing user is logged out (send to login page?)*/
     }

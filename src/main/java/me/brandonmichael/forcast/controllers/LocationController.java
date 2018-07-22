@@ -79,7 +79,7 @@ public class LocationController {
 
         }
 
-        if(user!=null){
+        if(user!=null && locationDao.findOne(Id)!=null){
             locationDao.delete(Id);
             User currentUser = userDao.findOne(user.getId());
             model.addAttribute("user", currentUser);

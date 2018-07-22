@@ -563,11 +563,68 @@ div.login form {
   padding-left: 15px;
 }
 
-body.location, .daily-forecast-header, .current-forecast-main-col {
+body.forecast, .daily-forecast-header, .current-forecast-main-col {
   background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
   background-attachment: fixed;
 }
 
 .daily-forecast-header {
   color: aliceblue;
+}
+
+body.location {
+  overflow: hidden;
+}
+
+div.location-card div, div.location-card a {
+  display: inline-block;
+  width: 49%;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+div.location-card a {
+  background-color: #d9534f;
+  padding: 6px 12px;
+  text-align: center;
+  color: white;
+}
+
+div.location-card div h5 {
+  margin: 0;
+}
+
+ul.locations-list {
+  overflow: auto;
+  max-height: 60vh;
+}
+
+ul.locations-list li form input[type="submit"] {
+  background-color: #5cb85c;
+  color: white;
+  padding: 6px 12px;
+  width: 99%;
+  border: none;
+}
+
+ul.locations-list li, ul.locations-list {
+  margin: 15px 0;
+}
+
+#pac-input {
+  width: 99%;
+  margin-bottom: 30px;
+  border: 2px solid #555;
+}
+
+.location-btn {
+  padding: 6px 12px;
+  width: 99%;
+  background-color: white;
+  border: 1px solid #555;
+  margin: 5px 0;
+}
+
+.username {
+  text-align: center;
 }

@@ -100,14 +100,10 @@ function initMap() {
         ]        
       });
         setMap();
-        let card = document.getElementById('pac-card');
+       
         let input = document.getElementById('pac-input');
-        let types = document.getElementById('type-selector');
-        let strictBounds = document.getElementById('strict-bounds-selector');
 
         geocoder = new google.maps.Geocoder();
-
-        /* map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card); */
 
 
         let autocomplete = new google.maps.places.Autocomplete(input);
@@ -161,26 +157,6 @@ function initMap() {
           infowindowContent.children['place-address'].textContent = address;
           infowindow.open(map, marker);
         });
-
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
-        function setupClickListener(id, types) {
-          let radioButton = document.getElementById(id);
-          radioButton.addEventListener('click', function() {
-            autocomplete.setTypes(types);
-          });
-        }
-
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-address', ['address']);
-        setupClickListener('changetype-establishment', ['establishment']);
-        setupClickListener('changetype-geocode', ['geocode']);
-
-        document.getElementById('use-strict-bounds')
-            .addEventListener('click', function() {
-              console.log('Checkbox clicked! New state=' + this.checked);
-              autocomplete.setOptions({strictBounds: this.checked});
-            });
 
             let myLatLng = getCenter();
             marker = new google.maps.Marker({

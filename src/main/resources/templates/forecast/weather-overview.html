@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title></title>
 </head>
-<body class="container-fluid">
+<body class="container-fluid location">
 
     <div th:object="${weather}" >
 
@@ -69,6 +69,11 @@
 
         </div>
 
+        <div class="row daily-forecast-header">
+            <h2>Weekly Overview</h2>
+            <img class="week-weather-icon" th:src="@{'/img/weather-icons/' + ${weather.daily.icon} + '.svg'}"/>
+            <h2 th:text="${weather.daily.summary}"></h2>
+        </div>
         <div class="row daily-forecast-article" th:object="${weather.daily}">
 
             <div class="col-md-3 daily-forecast" th:each="day : *{data}" > <!-- th:if="${itrStat.index} < 12" -->

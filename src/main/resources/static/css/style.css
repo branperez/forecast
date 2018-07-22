@@ -417,46 +417,6 @@
     font-size: 8rem;
 }
 
-#clear-day {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#partly-cloudy-night {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#cloudy {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#sleet {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#snow {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#wind {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#fog {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#rain {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#clear-night {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
-#partly-cloudy-day {
-    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
-}
-
 .daily-forecast-card{
     background-image: linear-gradient(to bottom, #90dffe 0%, #38a3d1 100%);
     position: relative;
@@ -499,7 +459,7 @@
     transition-duration: .5s;
 }
 
-.current-weather-icon {
+.current-weather-icon, .week-weather-icon {
     max-height: 80vh;
 }
 
@@ -601,4 +561,13 @@ div.login form {
 
 .location-controls {
   padding-left: 15px;
+}
+
+body.location, .daily-forecast-header, .current-forecast-main-col {
+  background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
+  background-attachment: fixed;
+}
+
+.daily-forecast-header {
+  color: aliceblue;
 }

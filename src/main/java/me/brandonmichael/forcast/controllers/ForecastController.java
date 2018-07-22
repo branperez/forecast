@@ -33,21 +33,8 @@ public class ForecastController {
         Weather jsonWeather = restTemplate.getForObject("https://api.darksky.net/forecast/ab7f7203b8910e9396157c09cd76eabf/" + latitude + "," + longitude, Weather.class);
             Weather weather = new Weather(jsonWeather);
 
-        HttpSession httpSession = request.getSession();
-
-        User user = null;
-        if(httpSession != null) {
-            user = (User) httpSession.getAttribute("user");
-
-        }
-
-        if(user!=null) {
-            model.addAttribute("user", user);
-        }
-
             model.addAttribute("weather", weather);
         return "forecast/weather-overview";
-        //
     }
 
 }

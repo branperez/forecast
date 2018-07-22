@@ -66,15 +66,20 @@
     <div th:object="${user}">
         <ul class="list-unstyled">
             <li  th:each="location : *{locations}" >
-                <h5 th:text="${location.city} + ', ' + ${location.administrative_area}"></h5>
+                <div>
+                    <div>
+                        <h5 th:text="${location.city} + ', ' + ${location.administrative_area}"></h5>
+                        <h5 th:text="${location.country}"></h5>
+                    </div>
+
+                    <a th:href="'/location/' + ${location.Id}" class="btn btn-danger">Remove</a>
+                </div>
                 <form method="post" action="/">
                     <input type="hidden" name="latitude" th:value="${location.latitude}"/>
                     <input type="hidden" name="longitude" th:value="${location.longitude}"/>
 
                     <input type="submit" class="btn btn-success" th:value="'Get ' + ${location.city} + ' Forecast'" />
                 </form>
-
-                <a th:href="'/location/' + ${location.Id}" class="btn btn-danger">Remove</a>
 
             </li>
         </ul>
@@ -83,6 +88,7 @@
 </div>
 <div id="map" class="col-lg-9"></div>
 </div>
+                                        <!-- reasons to not use thymeleaf -->
 <div th:if="${location}">
 <script th:inline="javascript">function setMap() {
 	setTimeout(function() {

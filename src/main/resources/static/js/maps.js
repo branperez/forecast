@@ -1,4 +1,5 @@
 /* thymeleaf throws error on script, work around to manually inject */
+/** more reasons to not use thymeleaf */
 let mapScript = document.createElement("script");
 mapScript.async = true;
 mapScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ16IY4VPnmLOt4OiQIIIzBNCMXgvulgg&libraries=places&callback=initMap";
@@ -234,9 +235,9 @@ function saveLocation() {
         for(i = 0; i < field.length; i++) {
             
             if(field[i].types[0] == "country") {
-                data.country = field[i].short_name;
+                data.country = field[i].long_name;
             } else if (field[i].types[0] == "administrative_area_level_1") {
-                data.state = field[i].long_name;
+                data.state = field[i].short_name;
             } else if (field[i].types[0] == "locality") {
                 data.city = field[i].long_name;
             }
